@@ -1,30 +1,21 @@
-import threading
-import time
-import random
+catalogo = {
+    "filme_01": {
+        "titulo": "Interestelar",
+        "ano": 2014,
+        "detalhes": {  # <--- Outro dicionário aqui dentro!
+            "diretor": "Christopher Nolan",
+            "duracao": "2h 49m"
+        }
+    },
+    "filme_02": {
+        "titulo": "Vingadores: Ultimato",
+        "ano": 2019,
+        "detalhes": {
+            "diretor": "Irmãos Russo",
+            "duracao": "3h 01m"
+        }
+    }
+}
 
-saldo = 100
 
-def sacar(valor):
-    global saldo
-    saldo_atual = saldo          # 1️⃣ lê o saldo
-    time.sleep(random.random())  # 2️⃣ força troca de contexto
-    saldo = saldo_atual - valor  # 3️⃣ escreve depois
-    print(f"Saque {valor} | saldo final: {saldo}")
-
-threads = []
-
-# duas operações concorrentes
-t1 = threading.Thread(target=sacar, args=(80,))
-t2 = threading.Thread(target=sacar, args=(30,))
-
-threads.append(t1)
-threads.append(t2)
-
-t1.start()
-t2.start()
-
-for t in threads:
-    t.join()
-
-print("Saldo esperado lógico: -10 ou erro")
-print("Saldo REAL:", saldo)
+print(catalogo["filme_01"]["detalhes"]["diretor"])
